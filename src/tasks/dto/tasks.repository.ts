@@ -24,7 +24,7 @@ export class TasksRepository extends Repository<Task> {
     const tasks = await query.getMany();
     return tasks;
   }
-
+  //create task with validation with typeorm
   async createTask(createTaskDto: CreateTaskDto): Promise<Task> {
     const { title, description } = createTaskDto;
 
