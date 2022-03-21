@@ -13,8 +13,8 @@ import { TasksService} from './tasks.service';
 export class TasksController {
     constructor(private tasksService: TasksService) {}
         @Get()
-        getTasks(@Query() filterDto: GetTaskFilterDto): Promise<Task[]> {
-            return this.tasksService.getTasks(filterDto);
+        getTasks(@Query() filterDto: GetTaskFilterDto, @GetUser() user:User,): Promise<Task[]> {
+            return this.tasksService.getTasks(filterDto, user);
         }
 
     // @Get()
@@ -33,8 +33,8 @@ export class TasksController {
 
     // typeorm code
         @Get('/:id')
-        getTaskById(@Param('id') id: string): Promise<Task>{
-            return this.tasksService.getTaskById(id);
+        getTaskById(@Param('id') id: string, @GetUser() user: User): Promise<Task>{
+            return this.tasksService.getTaskById(id, user);
         }
 
     // @Get('/:id')
@@ -66,10 +66,11 @@ export class TasksController {
         @Patch('/:id/status')
         updateTaskStatus(
             @Param('id') id: string,
-            @Body() updateTaskStatusDto: UpdateTaskStatusDto,
+            @GetUser() user: User,
+            @Body() updateTaskStatusDto: UpdateTaskStatusDto
         ): Promise<Task> {
             const {status} = updateTaskStatusDto;
-            return this.tasksService.updateTaskStatus(id, status);
+            return this.tasksService.updateTaskStatus(id, status, user);
         }
 
     // @Patch('/:id/status')
