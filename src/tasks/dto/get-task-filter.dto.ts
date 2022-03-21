@@ -8,6 +8,7 @@ export class GetTaskFilterDto {
     status? : TaskStatus;
 
     @IsOptional()
+
     //update validation
     @IsString()
     search? : string;
